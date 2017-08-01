@@ -10,13 +10,17 @@
       "date": "s",
       "exclude": ["c"],
       "include": ["c"],
-      "title": "t"
-    }, "https://bing0ne.com/"],
+      "title": "t",
+      "seed":["www.baidu.com","www.google.com"],
+      "base":["www.baidu.com"]
+    }, "bing0ne"],
     [{
       "date": "s",
       "exclude": ["c"],
       "include": ["c"],
-      "title": "t"
-    }, "https://weibo.com/"]
+      "title": "t",
+      "seed":["www.baidu.com","www.google.com"],
+      "base":["www.baidu.com"]
+    }, "weibo"]
   ]
 }

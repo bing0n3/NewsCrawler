@@ -9,26 +9,26 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
  */
 @JSONType(serialzeFeatures= SerializerFeature.BeanToArray, parseFeatures= Feature.SupportArrayToBean)
 public class Site {
-    private String url;
+    private String SiteName;
     private SiteConfig config;
 
     public Site() {};
-    public Site(String url, SiteConfig config){
-        this.url = url;
+    public Site(String SiteName, SiteConfig config){
+        this.SiteName = SiteName;
         this.config = config;
     }
 
     public Site(Site site){
-        this.url = site.getUrl();
+        this.SiteName = site.getSiteName();
         this.config = new SiteConfig(site.getConfig());
     }
 
-    public String getUrl() {
-        return url;
+    public String getSiteName() {
+        return SiteName;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setSiteName(String siteName) {
+        this.SiteName = siteName;
     }
 
     public SiteConfig getConfig() {
