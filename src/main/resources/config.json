@@ -1,0 +1,22 @@
+{
+  "image_save_path": "https://baidu.com/",
+  "mysql": {
+    "address": "127.0.0.1",
+    "password": "123456",
+    "port": 3366
+  },
+  "sites": [
+    [{
+      "date": "s",
+      "exclude": ["c"],
+      "include": ["c"],
+      "title": "t"
+    }, "https://bing0ne.com/"],
+    [{
+      "date": "s",
+      "exclude": ["c"],
+      "include": ["c"],
+      "title": "t"
+    }, "https://weibo.com/"]
+  ]
+}
