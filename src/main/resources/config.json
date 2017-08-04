@@ -8,12 +8,13 @@
   "sites": [
     [{
       "date": "test",
-      "exclude": "div.toc",
-      "include": "div.entry-content",
-      "title": "h1.entry-title.title",
-      "seed":["https://www.bing0ne.com"],
-      "base":["https://www.bing0ne.com/p/"],
-      "imgs":"p > img"
+      "exclude": "figure,div.related-articles",
+      "include": "div.main-content",
+      "title": "h1.gel-trafalgar-bold",
+      "seed":["http://feeds.bbci.co.uk/news/rss.xml"],
+      "base":["http://www.bbc.com/news","http://www.bbc.co.uk/news"],
+      "amp": "yes",
+      "imgs":"amp-img.article-image__image"
     }, "bbc"]
   ]
 }

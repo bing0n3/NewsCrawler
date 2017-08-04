@@ -42,7 +42,7 @@ public class MysqlDBServiceImpl implements MysqlDBService {
                         "  id bigint unsigned NOT NULL AUTO_INCREMENT," +
                         "  url VARCHAR(1024) NOT NULL," +
                         "  title VARCHAR(2048) NOT NULL," +
-                        "  html TEXT," +
+                        "  html LONGTEXT," +
                         "  parsedHtml TEXT," +
                         "  articleJson TEXT," +
                         "  imagePath TEXT," +

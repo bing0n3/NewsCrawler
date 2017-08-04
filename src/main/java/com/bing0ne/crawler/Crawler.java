@@ -9,6 +9,9 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.frontier.DocIDServer;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +88,29 @@ public class Crawler extends WebCrawler {
             String html = htmlParseData.getHtml();
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
-            // 判断网站类型，如果是文章则抓取，否则返回
+
+            /**
+            * 判断网站类型，如果是文章则抓取，否则返回
+             * 由于新闻网站大多数都存在og:type这一个meta属性,为article的时候,为文章.
+             */
             Map<String,String> meta = htmlParseData.getMetaTags();
-            if(!meta.get("og:type").toLowerCase().equals("article")){
-                logger.info("The webiste is not the Article.");
+            if(!meta.containsKey("og:type") || !meta.get("og:type").toLowerCase().equals("article")){
+                logger.info("The webiste type is not a article.");
                 return;
             }
+
+            /**
+             * 判断是否启用了amp,如果启用了amp只抓取amp页面
+             * 当amp有配置,但是网页不是以amp开头开头则不抓取该页面
+             * 使用amp是因为,国外的网站大多数都适配了google的amp页面,该页面的权重较高,网站排名会提高
+             */
+            Document doc = Jsoup.parse(html);
+            if ( siteConfig.getAmp().equals("no") || !doc.getElementsByAttribute("amp").is("html")) {
+                logger.info("该界面不是amp标准,跳过");
+                return;
+            }
+
+
 
             ExtractResult extracted = Extractor.extract(html,site, imgPath);
 
@@ -119,6 +139,7 @@ public class Crawler extends WebCrawler {
             if(url.startsWith(theBase))
                 return true;
         }
+        logger.info("This url not belong to ");
         return false;
     }
 }

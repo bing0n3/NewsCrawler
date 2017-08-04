@@ -14,11 +14,12 @@ public class SiteConfig{
     private String exclude;
     private String include;
     private String imgs;
+    private String amp;
 
     public SiteConfig() {
     }
 
-    public SiteConfig(ArrayList<String> seed, ArrayList<String> base, String date, String title, String exclude, String include, String imgs) {
+    public SiteConfig(ArrayList<String> seed, ArrayList<String> base, String date, String title, String exclude, String include, String imgs, String amp) {
         this.seed = seed;
         this.base = base;
         this.date = date;
@@ -26,6 +27,7 @@ public class SiteConfig{
         this.exclude = exclude;
         this.include = include;
         this.imgs = imgs;
+        this.amp = amp;
     }
 
     public SiteConfig(SiteConfig config){
@@ -36,6 +38,7 @@ public class SiteConfig{
         this.exclude = config.exclude;
         this.include = config.include;
         this.imgs = config.imgs;
+        this.amp = config.amp;
     }
 
     public ArrayList<String> getSeed() {
@@ -92,5 +95,13 @@ public class SiteConfig{
 
     public void setImgs(String imgs) {
         this.imgs = imgs;
+    }
+
+    public String getAmp() {
+        return amp;
+    }
+
+    public void setAmp(String amp) {
+        this.amp = amp;
     }
 }

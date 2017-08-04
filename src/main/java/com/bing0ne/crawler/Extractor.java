@@ -31,7 +31,7 @@ public class Extractor {
 
     private static final Whitelist whitelist = Whitelist.basic().removeTags("a","br","b","em","strong","u","i")
             .addTags("h1","h2","h3","h4","h5");
-    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    private static final Logger logger = LoggerFactory.getLogger(Extractor.class);
 
     public static ExtractResult extract(String html, Site site, String imgPath){
 
@@ -77,7 +77,7 @@ public class Extractor {
         if(doc.select(titleRule).isEmpty()){
             return new String("");
         }
-        return doc.select(titleRule).get(0).toString();
+        return doc.select(titleRule).get(0).text().toString();
     }
 
     // 排除不需要的标签
@@ -89,9 +89,9 @@ public class Extractor {
             return  elements;
 
         // 移除需要移除的标签和图片标签
-        ele = elements.not("div.toc");
+         elements.select(excludeDiv).remove();
 
-        return ele;
+        return elements;
     }
 
     // 获得指定div内的内容,返回Elements

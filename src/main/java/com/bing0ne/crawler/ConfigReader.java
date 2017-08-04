@@ -3,6 +3,8 @@ package com.bing0ne.crawler;
 import com.alibaba.fastjson.JSON;
 import com.bing0ne.crawler.Model.Config;
 import org.apache.poi.openxml4j.opc.internal.FileHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -15,6 +17,8 @@ import java.util.regex.Pattern;
 
 public class ConfigReader {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConfigReader.class);
+
     public static Config readConfigFile(String filepath){
 
         File file=new File(filepath);
@@ -22,6 +26,7 @@ public class ConfigReader {
 
         // 如果配置文件不存在，创建默认的配置文件
         if(!file.exists()|| file.isDirectory()){
+            logger.info("配置文件不存在,创建默认配置");
             copyDefaultConfig(filepath);
         }
         try {
@@ -34,6 +39,7 @@ public class ConfigReader {
             Matcher m = Filters.matcher(config_string);
             String dest = m.replaceAll("");
             config = JSON.parseObject(dest,Config.class);
+            logger.info("读取配置文件成功");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
