@@ -95,6 +95,10 @@ public class ConfigReader {
     public static void main(String[] args) {
         Config config = readConfigFile("/Users/bing0ne/.NewsCrawler.json");
         System.out.println(config.getMysql().getAddress());
+        System.out.println(config.getMysql().getUserName());
+        System.out.println(config.getSites().get(0).getConfig().getSeed().get(0));
+        System.out.println(config.getSites().get(0).getConfig().getExclude());
     }
+
 
 }

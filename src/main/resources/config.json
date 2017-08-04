@@ -1,26 +1,19 @@
 {
-  "image_save_path": "https://baidu.com/",
+  "image_save_path": "data/image",
   "mysql": {
-    "address": "127.0.0.1",
-    "password": "123456",
-    "port": 3366
+    "address": "jdbc:mysql://localhost:3306/crawler4j",
+    "userName": "root",
+    "password": "960501"
   },
   "sites": [
     [{
-      "date": "s",
-      "exclude": ["c"],
-      "include": ["c"],
-      "title": "t",
-      "seed":["www.baidu.com","www.google.com"],
-      "base":["www.baidu.com"]
-    }, "bing0ne"],
-    [{
-      "date": "s",
-      "exclude": ["c"],
-      "include": ["c"],
-      "title": "t",
-      "seed":["www.baidu.com","www.google.com"],
-      "base":["www.baidu.com"]
-    }, "weibo"]
+      "date": "test",
+      "exclude": "div.toc",
+      "include": "div.entry-content",
+      "title": "h1.entry-title.title",
+      "seed":["https://www.bing0ne.com"],
+      "base":["https://www.bing0ne.com/p/"],
+      "imgs":"p > img"
+    }, "bbc"]
   ]
 }

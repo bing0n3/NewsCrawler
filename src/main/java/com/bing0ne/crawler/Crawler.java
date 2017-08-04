@@ -1,45 +1,83 @@
 package com.bing0ne.crawler;
 
+import com.bing0ne.crawler.DB.MysqlDBService;
+import com.bing0ne.crawler.Model.ExtractResult;
+import com.bing0ne.crawler.Model.Site;
+import com.bing0ne.crawler.Model.SiteConfig;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
+import edu.uci.ics.crawler4j.frontier.DocIDServer;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-/**
- * Created by bing0ne on 31/07/2017.
- */
 public class Crawler extends WebCrawler {
-    private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
-            + "|png|mp3|mp4|zip|gz))$");
 
     /**
-     * This method receives two parameters. The first parameter is the page
-     * in which we have discovered this new url and the second parameter is
-     * the new url. You should implement this function to specify whether
-     * the given url should be crawled or not (based on your crawling logic).
-     * In this example, we are instructing the crawler to ignore urls that
-     * have css, js, git, ... extensions and to only accept urls that start
-     * with "http://www.ics.uci.edu/". In this case, we didn't need the
-     * referringPage parameter to make the decision.
+     * 正则匹配指定的后缀文件
+     */
+    private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
+            + "|png|mp3|mp3|zip|gz))$");
+    /**
+     *关于配置文件信息
+     */
+    private Site site;
+    private SiteConfig siteConfig;
+
+    private List<String> base;
+    private final String imgPath;
+
+
+    private final MysqlDBService mysqlDBService;
+
+    public Crawler(MysqlDBService mysqlDBService,String imgPath){
+        this.mysqlDBService = mysqlDBService;
+        this.imgPath = imgPath;
+    }
+
+
+    // 重载onstart类, 获得custom data 也就是网站的配置信息
+    @Override
+    public void onStart(){
+        site = (Site) myController.getCustomData();
+        siteConfig = site.getConfig();
+        this.base = new ArrayList<String>(siteConfig.getBase());
+        // 检查储存图片的文件夹是否存在
+
+
+    }
+
+
+
+
+
+    /**
+     * 这个方法主要是决定哪些url我们需要抓取，返回true表示是我们需要的，返回false表示不是我们需要的Url
+     * 第一个参数referringPage封装了当前爬取的页面信息
+     * 第二个参数url封装了当前爬取的页面url信息
      */
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
-        String href = url.getURL().toLowerCase();
-        return !FILTERS.matcher(href).matches()
-                && href.startsWith("http://www.ics.uci.edu/");
+
+        String href = url.getURL().toLowerCase();  // 得到小写的url
+        return !FILTERS.matcher(href).matches()   // 正则匹配，过滤掉我们不需要的后缀文件
+                && isStartWith(href) && !mysqlDBService.isExist(url.getURL()); // url必须是base规定中的开头，规定站点
     }
 
     /**
-     * This function is called when a page is fetched and ready
-     * to be processed by your program.
+     * 当我们爬到我们需要的页面，这个方法会被调用，我们可以尽情的处理这个页面
+     * page参数封装了所有页面信息
      */
     @Override
     public void visit(Page page) {
+
         String url = page.getWebURL().getURL();
-        System.out.println("URL: " + url);
+        logger.info("URL: " + url);
 
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
@@ -47,9 +85,40 @@ public class Crawler extends WebCrawler {
             String html = htmlParseData.getHtml();
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
-            System.out.println("Text length: " + text.length());
-            System.out.println("Html length: " + html.length());
-            System.out.println("Number of outgoing links: " + links.size());
+            // 判断网站类型，如果是文章则抓取，否则返回
+            Map<String,String> meta = htmlParseData.getMetaTags();
+            if(!meta.get("og:type").toLowerCase().equals("article")){
+                logger.info("The webiste is not the Article.");
+                return;
+            }
+
+            ExtractResult extracted = Extractor.extract(html,site, imgPath);
+
+            logger.info("Text length: " + text.length());
+            logger.info("Html length: " + html.length());
+            logger.info("Number of outgoing links: " + links.size());
+
+
+
+            try {
+                mysqlDBService.store(page, extracted);
+            } catch (RuntimeException e) {
+                logger.error("Storing failed", e);
+            }
         }
+    }
+
+
+    /**
+     * 判断将被抓取的网址是不是本站，
+     * 当url为规定的开头时，
+     * 返回true，否则返回false
+     */
+    private boolean isStartWith(String url){
+        for(String theBase : this.base) {
+            if(url.startsWith(theBase))
+                return true;
+        }
+        return false;
     }
 }

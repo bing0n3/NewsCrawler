@@ -11,19 +11,21 @@ public class SiteConfig{
     private ArrayList<String> base;   // base url, only urls start with this url will be patch
     private String date;
     private String title;
-    private ArrayList<String> exclude;
-    private ArrayList<String> include;
+    private String exclude;
+    private String include;
+    private String imgs;
 
     public SiteConfig() {
     }
 
-    public SiteConfig(ArrayList<String> seed, ArrayList<String> base, String date, String title, ArrayList<String> exclude, ArrayList<String> include) {
+    public SiteConfig(ArrayList<String> seed, ArrayList<String> base, String date, String title, String exclude, String include, String imgs) {
         this.seed = seed;
         this.base = base;
         this.date = date;
         this.title = title;
         this.exclude = exclude;
         this.include = include;
+        this.imgs = imgs;
     }
 
     public SiteConfig(SiteConfig config){
@@ -31,8 +33,9 @@ public class SiteConfig{
         this.base = config.base;
         this.date = config.date;
         this.title = config.title;
-        this.exclude = new ArrayList<String>(config.getExclude());
-        this.include = new ArrayList<String>(config.getInclude());
+        this.exclude = config.exclude;
+        this.include = config.include;
+        this.imgs = config.imgs;
     }
 
     public ArrayList<String> getSeed() {
@@ -67,19 +70,27 @@ public class SiteConfig{
         this.title = title;
     }
 
-    public List<String> getExclude() {
+    public String getExclude() {
         return exclude;
     }
 
-    public void setExclude(ArrayList<String> exclude) {
+    public void setExclude(String exclude) {
         this.exclude = exclude;
     }
 
-    public List<String> getInclude() {
+    public String getInclude() {
         return include;
     }
 
-    public void setInclude(ArrayList<String> include) {
+    public void setInclude(String include) {
         this.include = include;
+    }
+
+    public String getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(String imgs) {
+        this.imgs = imgs;
     }
 }

@@ -5,18 +5,15 @@ package com.bing0ne.crawler.Model;
  */
 public class Mysql {
     private String address;
-    private int port;
+    private String userName;
     private String password;
 
     public Mysql(){
-        this.address = "127.0.0.1";
-        this.port = 3366;
-        this.password = "123456";
     }
 
-    public Mysql(String address, int port, String password) {
+    public Mysql(String address, String userName, String password) {
         this.address = address;
-        this.port = port;
+        this.userName = userName;
         this.password = password;
     }
 
@@ -28,12 +25,12 @@ public class Mysql {
         this.address = address;
     }
 
-    public int getPort() {
-        return port;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
