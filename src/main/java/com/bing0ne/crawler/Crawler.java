@@ -6,17 +6,13 @@ import com.bing0ne.crawler.Model.Site;
 import com.bing0ne.crawler.Model.SiteConfig;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
-import edu.uci.ics.crawler4j.frontier.DocIDServer;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Crawler extends WebCrawler {
@@ -99,20 +95,42 @@ public class Crawler extends WebCrawler {
                 return;
             }
 
+
+
             /**
              * 判断是否启用了amp,如果启用了amp只抓取amp页面
              * 当amp有配置,但是网页不是以amp开头开头则不抓取该页面
              * 使用amp是因为,国外的网站大多数都适配了google的amp页面,该页面的权重较高,网站排名会提高
              */
             Document doc = Jsoup.parse(html);
-            if ( siteConfig.getAmp().equals("no") || !doc.getElementsByAttribute("amp").is("html")) {
-                logger.info("该界面不是amp标准,跳过");
+            if ( siteConfig.getAmp().equals("yes") && !doc.getElementsByAttribute("amp").is("html")) {
+                logger.debug("该界面不是amp标准,跳过");
                 return;
             }
 
 
 
             ExtractResult extracted = Extractor.extract(html,site, imgPath);
+            // 如果解析失败,则直接丢弃
+            if(extracted.getHtml().equals("")) {
+                logger.error("This article {} does not follow the rule.",url);
+                return;
+            }
+
+
+            /**
+             * 提取文章的时间
+             * 如果有规则对应的meta则提取文件
+             */
+//            if(meta.containsKey(siteConfig.getDate())){
+//                String date = meta.get(siteConfig.getDate());
+//                Date newDate = Extractor.extractDate(date);
+//                if(newDate == null)
+//                    newDate = new Date();
+//                Timestamp timestamp = new Timestamp(newDate.getTime());
+//                extracted.setTimestamp(timestamp);
+//            }
+
 
             logger.info("Text length: " + text.length());
             logger.info("Html length: " + html.length());
@@ -139,7 +157,7 @@ public class Crawler extends WebCrawler {
             if(url.startsWith(theBase))
                 return true;
         }
-        logger.info("This url not belong to ");
+        logger.debug("This url not belong to ");
         return false;
     }
 }

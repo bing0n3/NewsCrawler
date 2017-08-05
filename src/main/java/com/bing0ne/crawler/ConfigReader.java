@@ -63,7 +63,7 @@ public class ConfigReader {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("默认配置文件模版不存在");
+            logger.error("默认配置文件模版不存在");
         } catch (IOException e) {
             e.printStackTrace();
         }

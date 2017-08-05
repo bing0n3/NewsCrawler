@@ -7,14 +7,14 @@
   },
   "sites": [
     [{
-      "date": "test",
-      "exclude": "figure,div.related-articles",
-      "include": "div.main-content",
-      "title": "h1.gel-trafalgar-bold",
-      "seed":["http://feeds.bbci.co.uk/news/rss.xml"],
-      "base":["http://www.bbc.com/news","http://www.bbc.co.uk/news"],
-      "amp": "yes",
-      "imgs":"amp-img.article-image__image"
-    }, "bbc"]
+      "date": "og:pubdate",
+      "exclude": "figure,img,span.exclude-from-newsgate",
+      "include": ".p-text",
+      "title": "h1[itemprop=headline]",
+      "seed":["https://www.usatoday.com/"],
+      "base":["https://www.usatoday.com/"],
+      "amp": "no",
+      "imgs":"div.image-wrap > img,aside[itemprop=associatedMedia] > img"
+    }, "usatoday"]
   ]
 }

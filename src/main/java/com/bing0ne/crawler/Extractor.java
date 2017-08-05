@@ -19,9 +19,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+import java.util.TimeZone;
 
 
 /**
@@ -133,6 +138,10 @@ public class Extractor {
         //遍历urlList 下载图片
         for (Element el : ele) {
             String sUrl =  el.absUrl("src");
+            if(sUrl.equals("") && !el.absUrl("content").equals("")) {
+                sUrl = el.attr("content");
+            }
+
             try {
                 URL url = new URL(sUrl);
 
@@ -149,8 +158,8 @@ public class Extractor {
                 filenameBuilder.append("\""+filename+"\",");
 
             }catch (IOException e){
+                logger.error("图片 " + sUrl + "下载失败");
                 e.printStackTrace();
-                logger.info("图片 " + sUrl + "下载失败");
             }
         }
 
@@ -190,5 +199,18 @@ public class Extractor {
     }
 
 
+    public static Date extractDate(String date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            Date result = dateFormat.parse(date);
+            return result;
+        } catch (ParseException e) {
+            logger.error("时间解析失败");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
 }

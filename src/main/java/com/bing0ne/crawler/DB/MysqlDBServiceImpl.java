@@ -46,15 +46,16 @@ public class MysqlDBServiceImpl implements MysqlDBService {
                         "  parsedHtml TEXT," +
                         "  articleJson TEXT," +
                         "  imagePath TEXT," +
-                        "  seen timestamp," +
+                        "  seen timestamp NULL," +
+                        "  pubDate TIMESTAMP NULL," +
                         "  primary key (id)," +
                         "  UNIQUE KEY url (url)" +
                         ")");
 
 
         insertKeyStatement = comboPooledDataSource.getConnection().prepareStatement(
-                "insert into news(url,title,html,parsedHtml,articleJson,imagePath,seen) values " +
-                "(?,?,?,?,?,?,?)");
+                "insert into news(url,title,html,parsedHtml,articleJson,imagePath,seen,pubDate) values " +
+                "(?,?,?,?,?,?,?,?)");
 
         selecKeyStatement = comboPooledDataSource.getConnection().prepareStatement(
                 "SELECT 1 FROM news WHERE url=?; " );
@@ -68,6 +69,10 @@ public class MysqlDBServiceImpl implements MysqlDBService {
             try {
                 HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 
+                if(extractResult.getTimestamp() == null) {
+                    extractResult.setTimestamp(new Timestamp(new java.util.Date().getTime()));
+                }
+
                 insertKeyStatement.setString(1, page.getWebURL().getURL());
                 insertKeyStatement.setString(2, extractResult.getTitle());
                 insertKeyStatement.setString(3, htmlParseData.getHtml());
@@ -75,6 +80,7 @@ public class MysqlDBServiceImpl implements MysqlDBService {
                 insertKeyStatement.setString(5, extractResult.getJson());
                 insertKeyStatement.setString(6, extractResult.getImgPath());
                 insertKeyStatement.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));
+                insertKeyStatement.setTimestamp(8, extractResult.getTimestamp());
                 insertKeyStatement.executeUpdate();
             } catch (SQLException e) {
                 logger.error("SQL Exception while storing Article for url'{}'", page.getWebURL().getURL(), e);

@@ -1,7 +1,10 @@
 # NewCrawler
 
+[toc]
+
 一个新闻抓取爬虫.  
 爬虫基于Crawler4j这一Java的开源爬虫框架. 
+
 
 
 ## 设计思路
@@ -20,19 +23,60 @@
 
 * [ ] [The Guardia](http://www.theguardian.com)
 * [ ] [HuffingtonPost](http://www.huffingtonpost.com/)
-* [ ] [CNN](http://www.cnn.com/)
+* [x] [CNN](http://www.cnn.com/)
 * [ ] [ABC News](http://abcnews.go.com)
 * [ ] [Washington Post](http://www.washingtonpost.com)
 * [ ] [Fox News](http://www.foxnews.com)
-* [ ] [US Today](http://www.usatoday.com)
-* [ ] [LA Times](http://www.latimes.com)
-* [ ] [New York Times](http://www.nytimes.com)
+* [x] [US Today](http://www.usatoday.com)
+* [x] [LA Times](http://www.latimes.com)
+* [x] [New York Times](http://www.nytimes.com)
 * [x] [BBC](http://www.bbc.com)
 * [ ] [Google News](https://news.google.com)
 * [ ] [NBC News](http://www.nbcnews.com)
 * [ ] [Mail Oneline](http://www.dailymail.co.uk/ushome/index.htm) 
 * [ ] [WSJ](http://www.wsj.com)
 
+
+## 配置文件规则
+
+
+```json
+{
+  "image_save_path": "data/image",
+  "mysql": {
+    "address": "jdbc:mysql://localhost:3306/crawler4j",
+    "userName": "root",
+    "password": "960501"
+  },
+  "sites": [
+    [{
+      "date": "test",
+      "exclude": "figure,div.related-articles",
+      "include": "div.main-content",
+      "title": "h1.gel-trafalgar-bold",
+      "seed":["http://feeds.bbci.co.uk/news/rss.xml"],
+      "base":["http://www.bbc.com/news","http://www.bbc.co.uk/news"],
+      "amp": "yes",
+      "imgs":"amp-img.article-image__image"
+    }, "bbc"]
+  ]
+}
+```
+
+`image_save_path`: 是文章的保存地址  
+`mysql`: 是数据库的配置  
+`site`: 则是对于各个站点的控制  
+`date`: 对于文章时间的解析  
+`amp`: "yes","no" 表示开启与否  
+`seed`: 表示爬虫的起始网址  
+`base`: 表示爬虫访问的网址的规则, 基于`String.startWith()`实现  
+
+
+下面这些规则**基于jsoup的语法**  
+`exclude`: 需要排除的标签,  
+`title`: 抓取文章标题的标签,   
+`include`: 文章的范围,  
+`imgs`: 图片抓取规则  
 
 ## 例子
 
