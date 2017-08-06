@@ -112,7 +112,7 @@ public class Crawler extends WebCrawler {
 
             ExtractResult extracted = Extractor.extract(html,site, imgPath);
             // 如果解析失败,则直接丢弃
-            if(extracted.getHtml().equals("")) {
+            if(extracted.getHtml().equals("") || extracted.getTitle().equals("")) {
                 logger.error("This article {} does not follow the rule.",url);
                 return;
             }
