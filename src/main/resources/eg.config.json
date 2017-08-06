@@ -1,0 +1,81 @@
+{
+  "image_save_path": "data/image",
+  "mysql": {
+    "address": "jdbc:mysql://localhost:3306/crawler4j",
+    "userName": "root",
+    "password": "960501"
+  },
+  "sites": [
+    [{
+      "date": "",
+      "exclude": "figure,div.related-articles",
+      "include": "div.main-content",
+      "title": "h1.gel-trafalgar-bold",
+      "seed":["http://feeds.bbci.co.uk/news/rss.xml"],
+      "base":["http://www.bbc.com/news","http://www.bbc.co.uk/news"],
+      "amp": "yes",
+      "imgs":"amp-img.article-image__image"
+    }, "bbc"],
+    [{
+      "date": "og:pubdate",
+      "exclude": "div.l-standard-top,div.ad-wrapper",
+      "include": "div.body_text",
+      "title": "h1.pg-headline.l-big-top",
+      "seed":["http://rss.cnn.com/rss/edition.rss"],
+      "base":["http://www.cnn.com","http://edition.cnn.com","https://amp.cnn.com","http://amp.cnn.com"],
+      "amp": "yes",
+      "imgs":"amp-iframe > amp-img"
+    }, "CNN"],
+    [{
+      "date": "og:pubdate",
+      "exclude": "figure",
+      "include": ".story-body-text",
+      "title": "h1[itemprop=headline]",
+      "seed":["http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"],
+      "base":["https://www.nytimes.com/"],
+      "amp": "no",
+      "imgs":"figure > div.image > img"
+    }, "nytimes"],
+    [{
+      "date": "datePublished",
+      "exclude": "figure,div.trb_ar_cont,amp-ad,amp-img,div.trb_em_mb",
+      "include": "div.trb_ar_page",
+      "title": "h1[itemprop=headline]",
+      "seed":["http://www.latimes.com/rss2.0.xml"],
+      "base":["http://www.latimes.com/"],
+      "amp": "yes",
+      "imgs":"meta[property=og:image]"
+    }, "latimes"],
+    [{
+      "date": "og:pubdate",
+      "exclude": "figure,img,span.exclude-from-newsgate",
+      "include": ".p-text",
+      "title": "h1[itemprop=headline]",
+      "seed":["https://www.usatoday.com/"],
+      "base":["https://www.usatoday.com/"],
+      "amp": "no",
+      "imgs":"div.image-wrap > img,aside[itemprop=associatedMedia] > img"
+    }, "usatoday"],
+    [{
+      "date": "dcterms.modified",
+      "exclude": ".embed-media,.ad-container",
+      "include": "div.article-body",
+      "title": "h1.head1",
+      "seed":["http://feeds.foxnews.com/foxnews/latest"],
+      "base":["http://www.foxnews.com/"],
+      "amp": "no",
+      "imgs":"div.m > img,featured-image > img"
+    }, "foxnews"],
+    [{
+      "date": "dcterms.modified",
+      "exclude": ".inline-video,wp-ad,div.moat-trackable",
+      "include": "article[itemprop=articleBody]",
+      "title": "h1[itemprop=headline]",
+      "seed":["http://feeds.washingtonpost.com/rss/politics"],
+      "base":["https://www.washingtonpost.com/","http://www.washingtonpost.com/"],
+      "amp": "no",
+      "imgs":".inline-photo > img"
+    }, "washingtonpost"]
+
+  ]
+}
