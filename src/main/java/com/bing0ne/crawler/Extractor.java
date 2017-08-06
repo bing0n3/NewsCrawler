@@ -137,10 +137,23 @@ public class Extractor {
 
         //遍历urlList 下载图片
         for (Element el : ele) {
+
             String sUrl =  el.absUrl("src");
+
+            // 处理没有协议的图片链接
+            if(sUrl.equals("")) {
+                String aUrl = el.attr("src");
+                if(aUrl.startsWith("//")) {
+                    aUrl = "http:" + aUrl;
+                    sUrl = aUrl;
+                }
+            }
             if(sUrl.equals("") && !el.absUrl("content").equals("")) {
                 sUrl = el.attr("content");
             }
+
+            if(sUrl.equals(("")))
+                continue;
 
             try {
                 URL url = new URL(sUrl);
@@ -150,6 +163,8 @@ public class Extractor {
 
                 // 文件保存地址
                 String filename = path + FilenameUtils.getName(finalUrl);
+
+                logger.debug("Download Iamge from url ");
 
                 //根据url，下载文件到filename
                 Extractor.download(url, filename);
