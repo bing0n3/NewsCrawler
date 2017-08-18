@@ -75,7 +75,37 @@
       "base":["https://www.washingtonpost.com/","http://www.washingtonpost.com/"],
       "amp": "no",
       "imgs":".inline-photo > img"
-    }, "washingtonpost"]
+    }, "washingtonpost"],
+    [{
+      "date": "dcterms.modified",
+      "exclude": "div.t_callout,figure,img",
+      "include": "div.article-copy",
+      "title": "header.article-header > h1",
+      "seed":["http://abcnews.go.com/"],
+      "base":["http://abcnews.go.com/","http://a.abcnews.com/"],
+      "amp": "no",
+      "imgs":"figure.article-figure > div > picture > img"
+    }, "abcnews"],
+    [{
+      "date": "article:published_time",
+      "exclude": "figure,div.ad-slot,aside",
+      "include": "div.content__article-body",
+      "title": "h1.content__headline",
+      "seed":["https://www.theguardian.com/world/"],
+      "base":["https://www.theguardian.com","http://www.theguardian.com"],
+      "amp": "no",
+      "imgs":"figure > a > div > picture > img"
+    }, "theguardian"],
+    [{
+      "date": "article:published_time",
+      "exclude": "div.inline-newsletter",
+      "include": "div.content-list-component",
+      "title": "div.headline > h1",
+      "seed":["http://www.huffingtonpost.com/"],
+      "base":["http://www.huffingtonpost.com/"],
+      "amp": "no",
+      "imgs":"figure.content-list-component > img"
+    }, "huffingtonpost"]
 
   ]
 }

@@ -52,7 +52,8 @@ public class Html2json {
 		}
 
 		json.deleteCharAt(json.length() -1);
-		json.append("}");
+        if(json.length() != 0)
+            json.append("}");
 
 		return json.toString();
 	}

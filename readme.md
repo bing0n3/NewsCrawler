@@ -21,10 +21,10 @@
 ## 目标抓取站点
 
 
-* [ ] [The Guardia](http://www.theguardian.com)
-* [ ] [HuffingtonPost](http://www.huffingtonpost.com/)
+* [x] [The Guardia](http://www.theguardian.com)
+* [x] [HuffingtonPost](http://www.huffingtonpost.com/)
 * [x] [CNN](http://www.cnn.com/)
-* [ ] [ABC News](http://abcnews.go.com)
+* [x] [ABC News](http://abcnews.go.com)
 * [x] [Washington Post](http://www.washingtonpost.com)
 * [x] [Fox News](http://www.foxnews.com)
 * [x] [US Today](http://www.usatoday.com)
