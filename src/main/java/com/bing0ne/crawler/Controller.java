@@ -57,7 +57,7 @@ public class Controller {
 
             crawlConfig.setResumableCrawling(true);
 
-            crawlConfig.setCrawlStorageFolder(crawlStorageFolder);
+            crawlConfig.setCrawlStorageFolder(crawlStorageFolder + "/" + site.getSiteName());
             crawlConfig.setPolitenessDelay(politenessDelay);
             //设置爬出的深度
             crawlConfig.setMaxDepthOfCrawling(maxDepthOfCrawling);
