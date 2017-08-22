@@ -1,9 +1,9 @@
 {
-  "image_save_path": "data/image",
+  "image_save_path": "image",
   "mysql": {
-    "address": "jdbc:mysql://localhost:3306/crawler4j",
+    "address": "jdbc:mysql://localhost:3306/crawler",
     "userName": "root",
-    "password": "960501"
+    "password": "123698745"
   },
   "sites": [
     [{

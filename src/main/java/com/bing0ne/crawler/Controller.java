@@ -23,16 +23,16 @@ public class Controller {
     // 每次抓取前的延迟 单位 毫秒，防止IP被ban
     private static final int politenessDelay = 500;
     // 爬出的深度
-    private static final int maxDepthOfCrawling = 4;
+    private static final int maxDepthOfCrawling = 2;
 
     public static void main(String[] args) throws Exception {
-        String crawlStorageFolder = "/Users/bing0ne/crawler";
+        String crawlStorageFolder = "./data";
         FileHelper.mkdir(crawlStorageFolder);
         //每个爬虫的线程数
         int numberOfCrawlers = 7;
 
         // 读取配置文件
-        Config crawlerConfig =  ConfigReader.readConfigFile("/Users/bing0ne/.NewsCrawler.json");
+        Config crawlerConfig =  ConfigReader.readConfigFile("./.NewsCrawler.json");
         //  数据库的配置
         Mysql mysqlConfig = crawlerConfig.getMysql();
         // 每个网站的配置
