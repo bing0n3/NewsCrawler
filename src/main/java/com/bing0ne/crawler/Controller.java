@@ -25,6 +25,7 @@ public class Controller {
     // 爬出的深度
     private static final int maxDepthOfCrawling = 1;
 
+
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "./data";
         FileHelper.mkdir(crawlStorageFolder);
@@ -52,7 +53,10 @@ public class Controller {
             siteNames.add(site.getSiteName());
 
             CrawlConfig crawlConfig = new CrawlConfig();
-//            crawlConfig.setResumableCrawling(true);
+
+
+            crawlConfig.setResumableCrawling(true);
+
             crawlConfig.setCrawlStorageFolder(crawlStorageFolder);
             crawlConfig.setPolitenessDelay(politenessDelay);
             //设置爬出的深度
