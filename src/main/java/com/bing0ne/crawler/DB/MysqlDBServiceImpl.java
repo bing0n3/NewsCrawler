@@ -43,8 +43,8 @@ public class MysqlDBServiceImpl implements MysqlDBService {
                         "  url VARCHAR(1024) NOT NULL," +
                         "  title VARCHAR(2048) NOT NULL," +
                         "  html LONGTEXT," +
-                        "  parsedHtml TEXT," +
-                        "  articleJson TEXT," +
+                        "  parsedHtml LONGTEXT," +
+                        "  articleJson LONGTEXT," +
                         "  imagePath TEXT," +
                         "  seen timestamp NULL," +
                         "  pubDate TIMESTAMP NULL," +
