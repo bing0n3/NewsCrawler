@@ -23,7 +23,7 @@ public class Controller {
     // 每次抓取前的延迟 单位 毫秒，防止IP被ban
     private static final int politenessDelay = 500;
     // 爬出的深度
-    private static final int maxDepthOfCrawling = 2;
+    private static final int maxDepthOfCrawling = 1;
 
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "./data";

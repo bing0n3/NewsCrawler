@@ -35,7 +35,7 @@ import java.util.TimeZone;
 public class Extractor {
 
     private static final Whitelist whitelist = Whitelist.basic().removeTags("a","br","b","em","strong","u","i")
-            .addTags("h1","h2","h3","h4","h5");
+            .addTags("h1","h2","h3","h4","h5","div");
     private static final Logger logger = LoggerFactory.getLogger(Extractor.class);
 
     public static ExtractResult extract(String html, Site site, String imgPath){

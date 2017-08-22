@@ -67,32 +67,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.robbypond/boilerpipe -->
-        <dependency>
-            <groupId>com.robbypond</groupId>
-            <artifactId>boilerpipe</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.8.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20160810</version>
-        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.scriptengines/scriptengines-javascript -->
-        <dependency>
-            <groupId>com.google.code.scriptengines</groupId>
-            <artifactId>scriptengines-javascript</artifactId>
-            <version>1.1.1</version>
-        </dependency>
 
     </dependencies>
 

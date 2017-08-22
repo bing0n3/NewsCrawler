@@ -96,7 +96,7 @@ public class MysqlDBServiceImpl implements MysqlDBService {
             selecKeyStatement.setString(1, url);
             ResultSet rs = selecKeyStatement.executeQuery();
             if(!rs.next()) {
-                logger.info("数据库中没有该数据");
+                logger.info(url + "数据库中没有该数据");
                 return false;
             } else {
                 logger.info("数据库中已经存在该链接");
