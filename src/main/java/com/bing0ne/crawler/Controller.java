@@ -1,5 +1,6 @@
 package com.bing0ne.crawler;
 
+import com.bing0ne.crawler.DB.MysqlDBServiceImpl;
 import com.bing0ne.crawler.Model.Config;
 import com.bing0ne.crawler.Model.Mysql;
 import com.bing0ne.crawler.Model.Site;
@@ -41,8 +42,9 @@ public class Controller {
         // 存储图片的路径
         String imgPath = crawlerConfig.getImage_save_path();
 
-        // 判断文件是否存在,如果不存在,创建文件夹
-
+        // 创建数据库连接池
+        MysqlDBServiceImpl mysqlDBService = new MysqlDBServiceImpl(mysqlConfig.getAddress(),mysqlConfig.getUserName()
+                ,mysqlConfig.getPassword(),"com.mysql.jdbc.Driver");
 
         //爬虫配置
         List<CrawlController> controllers = new ArrayList<CrawlController>();
@@ -78,7 +80,7 @@ public class Controller {
             }
 
             controller.startNonBlocking(new MySqlCrawlerFactory(
-                    mysqlConfig.getAddress(),mysqlConfig.getUserName(),mysqlConfig.getPassword(),imgPath
+                    mysqlDBService ,imgPath
                     ), numberOfCrawlers);
             controllers.add(controller);
         }
