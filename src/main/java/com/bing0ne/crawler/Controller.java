@@ -24,7 +24,7 @@ public class Controller {
     // 每次抓取前的延迟 单位 毫秒，防止IP被ban
     private static final int politenessDelay = 500;
     // 爬出的深度
-    private static final int maxDepthOfCrawling = 1;
+    private static final int maxDepthOfCrawling = 3;
 
 
     public static void main(String[] args) throws Exception {
@@ -57,7 +57,7 @@ public class Controller {
             CrawlConfig crawlConfig = new CrawlConfig();
 
 
-            crawlConfig.setResumableCrawling(true);
+            crawlConfig.setResumableCrawling(false);
 
             crawlConfig.setCrawlStorageFolder(crawlStorageFolder + "/" + site.getSiteName());
             crawlConfig.setPolitenessDelay(politenessDelay);
